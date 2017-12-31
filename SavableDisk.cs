@@ -15,7 +15,7 @@ namespace Dribble.Savable {
       private static float lastSaveTime;
 
       public void Update() {
-         if (lastUpdateTime > lastSaveTime && lastSaveTime - Time.time > TimeBetweenSaves) {
+         if (lastUpdateTime > lastSaveTime && Time.time - lastSaveTime > TimeBetweenSaves) {
             lastSaveTime = Time.time;
             Write();
          }
