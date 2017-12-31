@@ -32,9 +32,14 @@ namespace Dribble.Savable {
       }
 
       internal static void Reload() {
-         var localString = PlayerPrefs.GetString(SavableProfile.ActiveProfileName);
          dict.Clear();
-         var keyValuePairs = localString.Split(new[] { PairsDelimiter }, StringSplitOptions.None);
+
+         var localString = PlayerPrefs.GetString(SavableProfile.ActiveProfileName);
+         Read(localString);
+      }
+
+      private static void Read(string contents) {
+         var keyValuePairs = contents.Split(new[] { PairsDelimiter }, StringSplitOptions.None);
          foreach (var kvpString in keyValuePairs) {
             var keyAndValue = kvpString.Split(new[] { Delimiter }, StringSplitOptions.None);
             if (keyAndValue.Length > 1) {
