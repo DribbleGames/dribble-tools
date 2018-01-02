@@ -2,8 +2,7 @@
 
 namespace Dribble.Savable {
    public static class SavableProfile {
-      private static int activeProfile = 0;
-      public static string ActiveProfileName => "P" + activeProfile + ".";
+      public static int ActiveProfile { get; private set; }
       private static List<ISavable> savables = new List<ISavable>();
 
       static SavableProfile() {
@@ -11,7 +10,7 @@ namespace Dribble.Savable {
       }
 
       public static void SetActiveProfile(int profileIndex) {
-         activeProfile = profileIndex;
+         ActiveProfile = profileIndex;
          for (var i = 0; i < savables.Count; i++) {
             savables[i].OnProfileSwitch();
          }

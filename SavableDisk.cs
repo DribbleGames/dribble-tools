@@ -34,7 +34,7 @@ namespace Dribble.Savable {
       internal static void Reload() {
          dict.Clear();
 
-         var localString = PlayerPrefs.GetString(SavableProfile.ActiveProfileName);
+         var localString = PlayerPrefs.GetString("P" + SavableProfile.ActiveProfile);
          Read(localString);
       }
 
@@ -59,11 +59,11 @@ namespace Dribble.Savable {
             builder.Append(PairsDelimiter);
          }
          var finalValue = builder.ToString();
-         PlayerPrefs.SetString(SavableProfile.ActiveProfileName, finalValue);
+         PlayerPrefs.SetString("P" + SavableProfile.ActiveProfile, finalValue);
       }
 
       public static void ClearEverything() {
-         PlayerPrefs.SetString(SavableProfile.ActiveProfileName, "");
+         PlayerPrefs.SetString("P" + SavableProfile.ActiveProfile, "");
          SavableProfile.SetActiveProfile(0);
       }
    }
