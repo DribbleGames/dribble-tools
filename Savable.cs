@@ -1,7 +1,7 @@
 ﻿using System;
 
 namespace Dribble.Savable {
-   public class Savable<T> : SavableProfile.ISavable {
+   public class Savable<T> {
       protected readonly string Key;
       private T currentValue;
       private bool hasBeenFetched;
@@ -9,7 +9,7 @@ namespace Dribble.Savable {
 
       protected Savable(string key) {
          Key = key;
-         SavableProfile.Register(this);
+         SavableProfile.SubscribeToProfileChange(OnProfileSwitch);
       }
 
       public virtual T Value {

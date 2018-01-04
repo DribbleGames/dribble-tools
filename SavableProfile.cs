@@ -2,8 +2,10 @@
 
 namespace Dribble.Savable {
    public static class SavableProfile {
+      public delegate void ProfileChangeCallback();
+
       public static int ActiveProfile { get; private set; }
-      private static List<ISavable> savables = new List<ISavable>();
+      private static List<ProfileChangeCallback> savables = new List<ProfileChangeCallback>();
 
       static SavableProfile() {
          SetActiveProfile(0);
@@ -11,18 +13,14 @@ namespace Dribble.Savable {
 
       public static void SetActiveProfile(int profileIndex) {
          ActiveProfile = profileIndex;
-         for (var i = 0; i < savables.Count; i++) {
-            savables[i].OnProfileSwitch();
-         }
          SavableDisk.Reload();
+         for (var i = 0; i < savables.Count; i++) {
+            savables[i]();
+         }
       }
 
-      internal static void Register(ISavable savable) {
-         savables.Add(savable);
-      }
-
-      public interface ISavable {
-         void OnProfileSwitch();
+      public static void SubscribeToProfileChange(ProfileChangeCallback callback) {
+         savables.Add(callback);
       }
    }
 }
