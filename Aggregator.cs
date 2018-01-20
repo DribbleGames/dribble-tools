@@ -2,7 +2,7 @@
 using System.Linq;
 using UnityEngine;
 
-namespace Dribble.Util {
+namespace Dribble {
    public class Aggregator {
       public class Token {
          private readonly Aggregator aggregator;

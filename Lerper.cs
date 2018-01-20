@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Dribble.Util {
+namespace Dribble {
    public class Lerper {
       private float desiredValue;
       public float Value { get; private set; }
@@ -17,7 +17,7 @@ namespace Dribble.Util {
       }
 
       public void Update() {
-         Value = Mathf.Lerp(Value, desiredValue, rate * Moment.Moment.DeltaTime);
+         Value = Mathf.Lerp(Value, desiredValue, rate * Moment.DeltaTime);
       }
    }
 }

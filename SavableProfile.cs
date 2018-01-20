@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Dribble.Savable {
+namespace Dribble {
    public static class SavableProfile {
       public delegate void ProfileChangeCallback();
 

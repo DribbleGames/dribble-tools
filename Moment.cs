@@ -1,7 +1,6 @@
 ﻿using UnityEngine;
-using Dribble.Util;
 
-namespace Dribble.Moment {
+namespace Dribble {
    public static class Moment {
       public static readonly Aggregator TimeScale = new Aggregator(1f, Refresh);
 

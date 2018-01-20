@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Dribble.Savable {
+namespace Dribble {
    public class Savable<T> {
       protected readonly string Key;
       private T currentValue;

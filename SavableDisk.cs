@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System;
 
-namespace Dribble.Savable {
+namespace Dribble {
 
    public class SavableDisk : MonoBehaviour {
       private static Dictionary<string, string> dict = new Dictionary<string, string>();
