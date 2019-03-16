@@ -250,6 +250,21 @@ namespace Dribble {
          }
       }
 
+      public void LerpTransform(Transform transform, float speed) {
+         var initialPosition = IsLocal ? transform.localPosition : transform.position;
+         var initialRotation = IsLocal ? transform.localRotation : transform.rotation;
+         var transitionPosition = Vector3.Lerp(initialPosition, Position, speed * Moment.DeltaTime);
+         var transitionRotation = Quaternion.Lerp(initialRotation, Rotation, speed * Moment.DeltaTime);
+         if (IsLocal) {
+            transform.localPosition = transitionPosition;
+            transform.localRotation = transitionRotation;
+         }
+         else {
+            transform.position = transitionPosition;
+            transform.rotation = transitionRotation;
+         }
+      }
+
       public readonly Vector3 Position;
       public readonly Quaternion Rotation;
       public bool IsLocal;
@@ -312,6 +327,7 @@ namespace Dribble {
          return false;
       }
 
+      public const float DefaultArc = .3f;
       public static bool ArcToward(this Transform transform, Vector3 targetPosition, float speed) {
          var positionDelta = targetPosition - transform.position;
          var distanceToTravel = speed * Moment.DeltaTime;
@@ -324,7 +340,7 @@ namespace Dribble {
             : new Vector3(-positionDelta.y, positionDelta.x);
 
 
-         var adjustedDelta = Vector3.Lerp(positionDelta, perpendicularDelta, 0.3f);
+         var adjustedDelta = Vector3.Lerp(positionDelta, perpendicularDelta, DefaultArc);
          transform.position += adjustedDelta.normalized * distanceToTravel;
          return false;
       }
