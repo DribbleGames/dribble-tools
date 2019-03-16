@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Dribble.Util;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -44,9 +45,9 @@ namespace Dribble {
 
    public static class ListExtension {
       public static T RemoveRandom<T>(this IList<T> list) {
-         var rand = (int)(Random.value * list.Count);
-         var item = list[rand];
-         list.RemoveAt(rand);
+         var index = Random.Range(0, list.Count);
+         var item = list[index];
+         list.RemoveAt(index);
          return item;
       }
 
@@ -60,11 +61,8 @@ namespace Dribble {
       }
 
       public static T ChooseRandom<T>(this IList<T> list) {
-         var rand = (int)(Random.value * list.Count);
-         if (rand == list.Count) {
-            rand = 0; // This happened once.
-         }
-         return list[rand];
+         var index = Random.Range(0, list.Count);
+         return list[index];
       }
 
       public static void Apply<T>(this IList<T> list, Action<T> lambda) {
@@ -429,6 +427,21 @@ namespace Dribble {
 
       public static float Clamp(this float value, float min = 0, float max = 1) {
          return Mathf.Clamp(value, min, max);
+      }
+
+      public static float MoveToward(this float position, float desiredPosition, float speed, float distanceTolerance = float.NaN) {
+         var difference = (desiredPosition - position);
+         var distance = Mathf.Abs(difference);
+
+         if (float.IsNaN(distanceTolerance)) {
+            distanceTolerance = speed * Moment.DeltaTime;
+         }
+
+         if (distance < distanceTolerance) {
+            return position;
+         }
+
+         return position + difference * speed * Moment.DeltaTime;
       }
    }
 
