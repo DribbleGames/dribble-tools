@@ -626,4 +626,21 @@ namespace Dribble {
          };
       }
    }
+
+   public static class ComponentExtensions {
+      public static T[] GetComponentsInChildrenExcludeSelf<T>(this Component component) {
+         var childrenAndSelf = component.GetComponentsInChildren<T>();
+         if (childrenAndSelf.Length == 0) {
+            return childrenAndSelf;
+         }
+         var hasT = component.GetComponent<T>();
+         if (hasT == null) {
+            return childrenAndSelf;
+         }
+
+         var list = childrenAndSelf.ToList();
+         list.RemoveAt(0);
+         return list.ToArray();
+      }
+   }
 }

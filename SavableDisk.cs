@@ -4,9 +4,8 @@ using System.Text;
 using System;
 
 namespace Dribble {
-
    public class SavableDisk : MonoBehaviour {
-      private static Dictionary<string, string> dict = new Dictionary<string, string>();
+      private static readonly Dictionary<string, string> dict = new Dictionary<string, string>();
       private const string Delimiter = "::";
       private const string PairsDelimiter = "``";
       private const float TimeBetweenSaves = 5f;
