@@ -151,6 +151,11 @@ namespace Dribble {
          var mainModule = system.main;
          mainModule.startColor = new ParticleSystem.MinMaxGradient(color);
       }
+
+      public static void SetEmissionRateOverTime(this ParticleSystem system, float rate) {
+         var emission = system.emission;
+         emission.rateOverTime = rate;
+      }
    }
 
    public static class RendererExtensions {
@@ -432,6 +437,22 @@ namespace Dribble {
       public static float RemapInRange(this float value, float newFrom, float newTo, float originalFrom = 0, float originalTo = 1) {
          var progress = (value - originalFrom) / (originalTo - originalFrom);
          return newFrom + (newTo - newFrom) * progress;
+      }
+
+      public static float RemapInRangeClamped(this float value, float newFrom, float newTo, float originalFrom = 0, float originalTo = 1) {
+         var progress = (value - originalFrom) / (originalTo - originalFrom);
+         var result = newFrom + (newTo - newFrom) * progress;
+
+         var larger = newFrom > newTo ? newFrom : newTo;
+         var smaller = newFrom > newTo ? newTo : newFrom;
+
+         if (result > larger) {
+            return larger;
+         }
+         if (result < smaller) {
+            return smaller;
+         }
+         return result;
       }
 
       public static float Oscillate(this float period, float from = 0, float to = 1, float offset = 0) {
